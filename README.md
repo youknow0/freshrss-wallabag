@@ -21,7 +21,7 @@ This extension is only compatible with Wallabag v2.
 1. In Wallabag, visit *API clients management* and click *Create a new
    client*
 1. Choose a name for your application and click create. A client ID and
-   a client secret is displayed. You will need this values later.
+   a client secret is displayed. You will need these values later.
 1. In FreshRSS, go to the settings page and click *Extensions*.
 1. A new extension named *WallabagAPI* should be displayed. Click
    *Manage*.
