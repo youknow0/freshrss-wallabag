@@ -53,7 +53,7 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		$response = $res->response;
 
 		if ($status !== 200) {
-			throw new Exception("Wallabag Server returned non-200 status " . $status);
+			throw new Exception("Token: Wallabag Server returned non-200 status " . $status);
 		}
 
 		$json = json_decode($response);
@@ -78,7 +78,7 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		$res = $this->post($apiUri, $params);
 
 		if ($status !== 201) {
-			throw new Exception("Wallabag Server returned non-201 status " . $status);
+			throw new Exception("Share: Wallabag Server returned non-201 status " . $status);
 		}
 	}
 	
