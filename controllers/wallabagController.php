@@ -105,6 +105,12 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 
 		$this->shareToWallabag($entry->link());
 		$this->view->callbackBeforeContent = function($view) {};
-		echo 'ok';
+
+		if (!$this->ajax) {
+			Minz_Request::forward(array(
+				'c' => 'index',
+				'a' => 'index',
+			), true);
+		}
 	}
 }
