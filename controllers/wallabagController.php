@@ -9,8 +9,8 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		$this->api_client_id = FreshRSS_Context::$user_conf->wallabag_api_client_id;
 		$this->api_client_secret = FreshRSS_Context::$user_conf->wallabag_api_client_secret;
 		$this->uri = FreshRSS_Context::$user_conf->wallabag_api_uri;
-		$this->api_username = FreshRSS_Context::$user_conf->wallabag_api_username;
-		$this->api_password = FreshRSS_Context::$user_conf->wallabag_api_password;
+		$this->api_username = FreshRSS_Context::$user_conf->wallabag_username;
+		$this->api_password = FreshRSS_Context::$user_conf->wallabag_password;
 	}
 
 	private function getOauthUri() {
