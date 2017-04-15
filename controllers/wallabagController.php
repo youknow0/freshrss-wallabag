@@ -21,22 +21,28 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		return $this->uri . '/api/entries/entries.json';
 	}
 
-	protected function post($uri, $postdata) {
+	protected function post($uri, $postdata, $headers = array()) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $this->getOauthUri());
-		curl_setopt($curl, CURLOPT_HEADER, 1);
-		/*curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-			'Content-Type: application/x-www-form-urlencoded;charset=UTF-8',
-		));*/
+		//curl_setopt($curl, CURLOPT_HEADER, 1);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
+
 		$result = new StdClass;
 
 		$result->response = curl_exec($curl);
 		$result->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 		return $result;
+	}
+
+	protected function authPost($uri, $postdata, $accessToken) {
+		$headers = array(
+			'Authorization' => 'Bearer ' . $accessToken
+		);
+		return $this->post($uri, $postdata, $headers);
 	}
 
 	private function getOauthToken() {
@@ -57,26 +63,29 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		}
 
 		$json = json_decode($response);
+		var_dump($json);
 
-		if (empty($json["access_token"])) {
+		if (empty($json->access_token)) {
 			throw new Exception("Server did not supply an access token!");
 		}
 
-		return $json["access_token"];
+		return $json->access_token;
 	}
 
 	protected function shareToWallabag($urlToShare) {
 		$token = $this->getOauthToken();
 		$apiUri = $this->getEntriesUri();
-		$status = $res->status;
-		$response = $res->response;
 
 		$params = array(
 			'url' => $urlToShare,
 		);
 
-		$res = $this->post($apiUri, $params);
+		$res = $this->authPost($apiUri, $params, $token);
+		$status = $res->status;
+		$response = $res->response;
 
+		echo $apiUri;
+		echo $response; exit;
 		if ($status !== 201) {
 			throw new Exception("Share: Wallabag Server returned non-201 status " . $status);
 		}
