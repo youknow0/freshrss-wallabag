@@ -87,8 +87,8 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		$status = $res->status;
 		$response = $res->response;
 
-		if ($status !== 201) {
-			throw new Exception("Share: Wallabag Server returned non-201 status " . $status);
+		if ($status !== 200) {
+			throw new Exception("Share: Wallabag Server returned non-200 status " . $status);
 		}
 	}
 	
