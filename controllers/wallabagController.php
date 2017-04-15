@@ -18,17 +18,17 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 	}
 
 	private function getEntriesUri() {
-		return $this->uri . '/api/entries/entries.json';
+		return $this->uri . '/api/entries.json';
 	}
 
 	protected function post($uri, $postdata, $headers = array()) {
 		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $this->getOauthUri());
+		curl_setopt($curl, CURLOPT_URL, $uri);
 		//curl_setopt($curl, CURLOPT_HEADER, 1);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($postdata));
 
 		$result = new StdClass;
 
@@ -40,7 +40,7 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 
 	protected function authPost($uri, $postdata, $accessToken) {
 		$headers = array(
-			'Authorization' => 'Bearer ' . $accessToken
+			'Authorization: Bearer ' . $accessToken,
 		);
 		return $this->post($uri, $postdata, $headers);
 	}
@@ -54,7 +54,11 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 			'grant_type' => 'password'
 		);
 
-		$res = $this->post($this->getOauthUri(), $postdata);
+		$headers = array(
+			'Content-Type: application/x-www-form-urlencoded',
+		);
+
+		$res = $this->post($this->getOauthUri(), $postdata, $headers);
 		$status = $res->status;
 		$response = $res->response;
 
@@ -63,7 +67,6 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		}
 
 		$json = json_decode($response);
-		var_dump($json);
 
 		if (empty($json->access_token)) {
 			throw new Exception("Server did not supply an access token!");
@@ -84,8 +87,6 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		$status = $res->status;
 		$response = $res->response;
 
-		echo $apiUri;
-		echo $response; exit;
 		if ($status !== 201) {
 			throw new Exception("Share: Wallabag Server returned non-201 status " . $status);
 		}
