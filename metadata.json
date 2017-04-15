@@ -1,5 +1,5 @@
 {
-	"name": "Wallabag API",
+	"name": "WallabagAPI",
 	"author": "Nico Boehr",
 	"description": "Push links to wallabag v2 without opening a web page.",
 	"version": 0.1,
