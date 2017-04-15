@@ -23,10 +23,12 @@ class WallabagApiExtension extends Minz_Extension {
 		}
 	}
 
-	public static function addWallabagButton() {
+	public static function addWallabagButton($entry) {
 		echo '<ul class="horizontal-list flux_header">';
 		echo '<li class="item manage"><a class="bookmark" href="#">Wallabag</a></li>';
 		echo '</ul>';
+
+		return $entry;
 	}
 
 }
