@@ -3,6 +3,7 @@
 class FreshExtension_wallabag_Controller extends Minz_ActionController {
 	public function __construct() {
 		$this->getConfig();
+		$this->view = new StdClass;
     }
 
 	private function getConfig() {
@@ -103,5 +104,7 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 		}
 
 		$this->shareToWallabag($entry->link());
+		$this->view->callbackBeforeContent = function($view) {};
+		echo 'ok';
 	}
 }
