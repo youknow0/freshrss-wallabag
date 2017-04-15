@@ -11,12 +11,26 @@ class WallabagApiExtension extends Minz_Extension {
 		                    array('WallabagApiExtension', 'addWallabagButton'));
 	}
 
+	private function removeTrailingSlash($url) {
+		$url = trim($url);
+		$urlLen = strlen($url);
+		$urlLastCharPos = $urlLen - 1;
+		$lastChar = $url[$urlLastCharPos];
+
+		if ($lastChar == '/') {
+			return substr($url, 0, $urlLastCharPos);
+		}
+
+		return $url;
+	}
+
 	public function handleConfigureAction() {
 		$this->registerTranslates();
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::$user_conf->wallabag_api_client_id = Minz_Request::param('api_client_id', '');
 			FreshRSS_Context::$user_conf->wallabag_api_client_secret = Minz_Request::param('api_client_secret', '');
-			FreshRSS_Context::$user_conf->wallabag_api_uri = Minz_Request::param('uri', '');
+			$uri = $this->removeTrailingSlash(Minz_Request::param('uri', ''));
+			FreshRSS_Context::$user_conf->wallabag_api_uri = $uri;
 			FreshRSS_Context::$user_conf->wallabag_username = Minz_Request::param('username', '');
             $password = Minz_Request::param('password', '');
             if (!empty($password)) {
