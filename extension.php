@@ -2,13 +2,13 @@
 
 class WallabagApiExtension extends Minz_Extension {
 	public function init() {
+		Minz_View::appendScript($this->getFileUrl('jquerymin.js', 'js'), false, false, false);
+		Minz_View::appendScript($this->getFileUrl('script.js', 'js'), false, false, false);
+
 		$this->registerTranslates();
 
 		$this->registerController('wallabag');
 		$this->registerViews();
-
-		$this->registerHook('entry_before_display',
-		                    array('WallabagApiExtension', 'addWallabagButton'));
 	}
 
 	private function removeTrailingSlash($url) {
@@ -38,17 +38,6 @@ class WallabagApiExtension extends Minz_Extension {
             }
 			FreshRSS_Context::$user_conf->save();
 		}
-	}
-
-	public static function addWallabagButton($entry) {
-		$params = array('c' => 'wallabag', 'a' => 'share', 'params' => array('id' => $entry->id()));
-		$url = Minz_Url::display($params);
-
-		echo '<ul class="horizontal-list flux_header">';
-		echo '<li class="item manage"><a class="bookmark" href="', $url, '">Wallabag</a></li>';
-		echo '</ul>';
-
-		return $entry;
 	}
 
 }
