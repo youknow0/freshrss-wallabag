@@ -21,7 +21,6 @@ class WallabagApiExtension extends Minz_Extension {
 			FreshRSS_Context::$user_conf->wallabag_api_password = Minz_Request::param('wallabag_api_password', '');
 			FreshRSS_Context::$user_conf->save();
 		}
-}
 	}
 
 	public static function addWallabagButton() {
