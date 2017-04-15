@@ -1,1 +1,45 @@
-<p class="alert alert-warn"><?php echo _t('ext.hello_world.no_configuration'); ?></p>
+<form action="<?php echo _url('extension', 'configure', 'e', urlencode($this->getName())); ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+	<div class="form-group">
+		<label class="group-name" for="api_client_id"><?php echo _t('ext.wallabag.api_client_id'); ?></label>
+		<div class="group-controls">
+			<input type="text" name="" id="api_client_id" value="<?php echo htmlspecialchars(FreshRSS_Context::$user_conf->wallabag_api_client_id); ?>">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name" for="api_client_secret"><?php echo _t('ext.wallabag.api_client_secret'); ?></label>
+		<div class="group-controls">
+			<input type="text" name="" id="api_client_secret" value="<?php echo htmlspecialchars(FreshRSS_Context::$user_conf->wallabag_api_client_secret); ?>">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name" for="uri"><?php echo _t('ext.wallabag.uri'); ?></label>
+		<div class="group-controls">
+			<input type="text" name="" id="uri" value="<?php echo htmlspecialchars(FreshRSS_Context::$user_conf->wallabag_api_uri); ?>">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name" for="username"><?php echo _t('ext.wallabag.username'); ?></label>
+		<div class="group-controls">
+			<input type="text" name="" id="username" value="<?php echo htmlspecialchars(FreshRSS_Context::$user_conf->wallabag_api_username); ?>">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name" for="password"><?php echo _t('ext.wallabag.password'); ?></label>
+		<div class="group-controls">
+			<input type="text" name="" id="password">
+		</div>
+	</div>
+
+	<div class="form-group"
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+			<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+		</div>
+	</div>
+</form>
