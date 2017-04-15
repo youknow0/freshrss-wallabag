@@ -3,10 +3,12 @@ function save_wallabag(active) {
 	return false;
     }
 
-    var url = active.find("a.wallabag").attr("href");
+    var wallabagBtn = active.find("a.wallabag");
+    var url = wallabagBtn.attr("href");
     if (url === undefined) {
 	return false;
     }
+    wallabagBtn.text('.');
 
     if (pending_entries[active.attr('id')]) {
 	return false;
@@ -22,6 +24,7 @@ function save_wallabag(active) {
 	},
     }).done(function (data) {
 	delete pending_entries[active.attr('id')];
+        wallabagBtn.text('✓');
     }).fail(function (data) {
 	openNotification(i18n.notif_request_failed, 'bad');
 	delete pending_entries[active.attr('id')];
