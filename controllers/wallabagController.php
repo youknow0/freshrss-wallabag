@@ -12,7 +12,10 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->api_client_secret = Minz_Request::param('api_client_secret', '');
 			FreshRSS_Context::$user_conf->uri = Minz_Request::param('uri', '');
 			FreshRSS_Context::$user_conf->username = Minz_Request::param('username', '');
-			FreshRSS_Context::$user_conf->password = Minz_Request::param('password', '');
+            $password = Minz_Request::param('password', '');
+            if (!empty($password)) {
+                FreshRSS_Context::$user_conf->password = $password;
+            }
 			FreshRSS_Context::$user_conf->save();
 		}
 	}
