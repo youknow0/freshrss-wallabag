@@ -12,6 +12,24 @@ the Wallabag API and sends the request from the server side. This means
 that your workflow of skipping through articles is not interrupted when
 you add an article to Wallabag.
 
+This extension is only compatible with Wallabag v2.
+
+## Setup
+
+1. Copy this extension folder to `extensions` folder of your FreshRSS
+   installation
+1. In Wallabag, visit *API clients management* and click *Create a new
+   client*
+1. Choose a name for your application and click create. A client ID and
+   a client secret is displayed. You will need this values later.
+1. In FreshRSS, go to the settings page and click *Extensions*.
+1. A new extension named *WallabagAPI* should be displayed. Click
+   *Manage*.
+1. Copy and paste the client ID and the client secret from Wallabag to
+   FreshRSS. Also fill the URI (for example: `https://app.wallabag.it`)
+   and your Wallabag username and password.
+
+
 ## License 
 
 This program is free software: you can redistribute it and/or modify
