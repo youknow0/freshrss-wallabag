@@ -1,8 +1,7 @@
 <?php
 
 class FreshExtension_wallabag_Controller extends Minz_ActionController {
-	public function __construct($params) {
-		$this->params = $params;
+	public function __construct() {
 		$this->getConfig();
 	}
 
@@ -85,7 +84,7 @@ class FreshExtension_wallabag_Controller extends Minz_ActionController {
 	
 	public function shareAction() {
 		$uri = $this->getEntriesUri();
-		$entryId = (int) $this->params['id'];
+		$entryId = (int) Helper::fetch_get('id', '');
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entry = $entryDAO->searchById($entryId);
 
