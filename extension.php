@@ -27,8 +27,11 @@ class WallabagApiExtension extends Minz_Extension {
 	}
 
 	public static function addWallabagButton($entry) {
+		$params = array('c' => 'wallabag', 'a' => 'share', 'params' => array('id' => $entry->id()));
+		$url = Minz_Url::display($params);
+
 		echo '<ul class="horizontal-list flux_header">';
-		echo '<li class="item manage"><a class="bookmark" href="#">Wallabag</a></li>';
+		echo '<li class="item manage"><a class="bookmark" href="', $url, '">Wallabag</a></li>';
 		echo '</ul>';
 
 		return $entry;
